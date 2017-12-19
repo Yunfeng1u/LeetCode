@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 728. Self Dividing Numbers
+ * https://leetcode.com/problems/self-dividing-numbers/description/
+ * <p>
  * A self-dividing number is a number that is divisible by every digit it contains.
  * <p>
  * For example, 128 is a self-dividing number because 128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
@@ -20,11 +25,26 @@ import java.util.List;
  */
 public class SelfDividingNumbers {
     public static void main(String[] args) {
-        List<Integer> list = selfDividingNumbers(1, 22);
+        List<Integer> list = selfDividingNumbers(1, 37);
+        for (Integer integer : list) {
+            System.out.println(integer);
+        }
     }
 
     public static List<Integer> selfDividingNumbers(int left, int right) {
 
-        return null;
+        List<Integer> list = new ArrayList<>();
+        for (int current = left; current <= right; current++) {
+            int j = current;
+            while(j > 0){
+                int digit = j % 10;
+                if (digit == 0 || (current % (digit) != 0)) {
+                    break;
+                }
+                j /= 10;
+            }
+            if (j == 0) list.add(current);
+        }
+        return list;
     }
 }
