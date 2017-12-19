@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * 461. Hamming Distance
  * https://leetcode.com/problems/hamming-distance/description/
@@ -19,9 +21,45 @@
  * Explanation:
  * 1   (0 0 0 1)
  * 4   (0 1 0 0)
- *        ↑   ↑
+ * ↑   ↑
  * <p>
  * The above arrows point to positions where the corresponding bits are different.
  */
 public class HammingDistance {
+
+    public static void main(String[] args) {
+        System.out.println(hammingDistanceS(56,612));
+    }
+
+    public static int hammingDistance(int x, int y) {
+        int countDiff = 0;
+        String binaryStringHigh = Integer.toBinaryString(x);
+        String binaryStringLow = Integer.toBinaryString(y);
+
+        int gap = binaryStringHigh.length() - binaryStringLow.length();
+
+        if (gap < 0) {
+            gap = -gap;
+            String temp = binaryStringHigh;
+            binaryStringHigh = binaryStringLow;
+            binaryStringLow = temp;
+        }
+
+        for (int i = binaryStringLow.length() - 1; i >= 0; i--) {
+            if (binaryStringHigh.charAt(i + gap) != binaryStringLow.charAt(i)) {
+                countDiff++;
+            }
+        }
+
+        for (int i = 0; i < gap; i++) {
+            if (binaryStringHigh.charAt(i) == '1') {
+                countDiff++;
+            }
+        }
+        return countDiff;
+    }
+
+    public static int hammingDistanceS(int x, int y) {
+        return Integer.bitCount(x ^ y);
+    }
 }
