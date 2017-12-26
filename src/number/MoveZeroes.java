@@ -1,3 +1,5 @@
+package number;
+
 import utils.Log;
 
 import java.util.HashMap;
@@ -18,18 +20,21 @@ import java.util.Map;
  */
 public class MoveZeroes {
     public static void main(String[] args) {
-        int[] array = new int[]{0, 1, 0, 3, 12};
+        int[] array = new int[]{61, 0, 1, 1, 1, 0, 0, 3, 6, 12};
         moveZeroes(array);
         Log.d(array);
     }
 
     public static void moveZeroes(int[] nums) {
-        
+        int nonIndexCount = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0){
-                for (int j = i; j < nums.length; j++) {
-
+            if (nums[i] != 0) {
+                if (i != nonIndexCount) {
+                    nums[i] ^= nums[nonIndexCount];
+                    nums[nonIndexCount] ^= nums[i];
+                    nums[i] ^= nums[nonIndexCount];
                 }
+                nonIndexCount++;
             }
         }
     }

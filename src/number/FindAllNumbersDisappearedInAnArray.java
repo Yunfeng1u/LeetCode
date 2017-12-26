@@ -1,3 +1,5 @@
+package number;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class FindAllNumbersDisappearedInAnArray {
     }
 
     public static List<Integer> findDisappearedNumbers2(int[] nums) {
-        List<Integer> ret = new ArrayList<Integer>();
+        List<Integer> ret = new ArrayList<>();
 
         for (int i = 0; i < nums.length; i++) {
             int val = Math.abs(nums[i]) - 1;

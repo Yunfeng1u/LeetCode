@@ -1,11 +1,11 @@
-package Tree;
+package tree;
 
 import entity.TreeNode;
 
 import java.util.Stack;
 
 /**
- * 226. Invert Binary Tree
+ * 226. Invert Binary tree
  * https://leetcode.com/problems/invert-binary-tree/description/
  * Invert a binary tree.
  *      4

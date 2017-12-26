@@ -1,4 +1,4 @@
-package Tree;
+package tree;
 
 import entity.TreeNode;
 
@@ -14,7 +14,7 @@ import java.util.Stack;
  * <p>
  * Example 1:
  * Input:
- * Tree 1                     Tree 2
+ * tree 1                     tree 2
  *     1                         2
  *    / \                       / \
  *   3   2                     1   3
