@@ -2,6 +2,8 @@ package tree;
 
 import entity.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -67,8 +69,8 @@ public class SubtreeOfAnotherTree {
             right = new TreeNode(5);
         }};
 
-        isSubtree(t1, t2);
-        isSubtree(t3, t2);
+        System.out.println(isSubtree(t1, t2));
+        System.out.println(isSubtree(t3, t2));
     }
 
     public static boolean isSubtree(TreeNode s, TreeNode t) {
@@ -76,21 +78,65 @@ public class SubtreeOfAnotherTree {
         if (s == null || t == null) {
             return false;
         }
+
         Stack<TreeNode> stackS = new Stack<>();
-        Stack<TreeNode> stackT = new Stack<>();
         stackS.push(s);
-        stackT.push(t);
 
-        while (!stackS.isEmpty() && !stackT.isEmpty()) {
+        while (!stackS.isEmpty()) {
             TreeNode nodeS = stackS.pop();
-            TreeNode nodeT = stackT.pop();
-            if (nodeT.val == nodeS.val) {
+            if (t.val == nodeS.val && isSameTree(t, nodeS)) {
+                return true;
+            } else {
+                if (nodeS.left != null) {
+                    stackS.push(nodeS.left);
+                }
+                if (nodeS.right != null) {
+                    stackS.push(nodeS.right);
+                }
+            }
+        }
+        return false;
+    }
 
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+
+        if (p == q) return true;
+
+        if (p == null || q == null) return false;
+
+        Queue<TreeNode> queueP = new LinkedList<>();
+        Queue<TreeNode> queueQ = new LinkedList<>();
+
+        queueP.offer(p);
+        queueQ.offer(q);
+
+        while (!queueP.isEmpty() || !queueQ.isEmpty()) {
+            TreeNode nodeP = queueP.poll();
+            TreeNode nodeQ = queueQ.poll();
+
+            if (nodeP.val != nodeQ.val) {
+                return false;
             }
 
+            if (nodeP.left != nodeQ.left) {
+                if (nodeP.left == null || nodeQ.left == null) {
+                    return false;
+                } else {
+                    queueP.offer(nodeP.left);
+                    queueQ.offer(nodeQ.left);
+                }
+            }
 
-
+            if (nodeP.right != nodeQ.right) {
+                if (nodeP.right == null || nodeQ.right == null) {
+                    return false;
+                } else {
+                    queueP.offer(nodeP.right);
+                    queueQ.offer(nodeQ.right);
+                }
+            }
         }
+
         return true;
     }
 }
