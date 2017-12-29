@@ -84,7 +84,7 @@ public class SubtreeOfAnotherTree {
 
         while (!stackS.isEmpty()) {
             TreeNode nodeS = stackS.pop();
-            if (t.val == nodeS.val && isSameTree(t, nodeS)) {
+            if (t.val == nodeS.val && SameTree.isSameTree(t, nodeS)) {
                 return true;
             } else {
                 if (nodeS.left != null) {
@@ -96,47 +96,5 @@ public class SubtreeOfAnotherTree {
             }
         }
         return false;
-    }
-
-    public static boolean isSameTree(TreeNode p, TreeNode q) {
-
-        if (p == q) return true;
-
-        if (p == null || q == null) return false;
-
-        Queue<TreeNode> queueP = new LinkedList<>();
-        Queue<TreeNode> queueQ = new LinkedList<>();
-
-        queueP.offer(p);
-        queueQ.offer(q);
-
-        while (!queueP.isEmpty() || !queueQ.isEmpty()) {
-            TreeNode nodeP = queueP.poll();
-            TreeNode nodeQ = queueQ.poll();
-
-            if (nodeP.val != nodeQ.val) {
-                return false;
-            }
-
-            if (nodeP.left != nodeQ.left) {
-                if (nodeP.left == null || nodeQ.left == null) {
-                    return false;
-                } else {
-                    queueP.offer(nodeP.left);
-                    queueQ.offer(nodeQ.left);
-                }
-            }
-
-            if (nodeP.right != nodeQ.right) {
-                if (nodeP.right == null || nodeQ.right == null) {
-                    return false;
-                } else {
-                    queueP.offer(nodeP.right);
-                    queueQ.offer(nodeQ.right);
-                }
-            }
-        }
-
-        return true;
     }
 }
