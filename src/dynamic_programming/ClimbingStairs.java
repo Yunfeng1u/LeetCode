@@ -32,11 +32,27 @@ package dynamic_programming;
 public class ClimbingStairs {
 
     public static void main(String[] args) {
-        System.out.println(climbStairs(8));
+        System.out.println(climbStairs(6));
     }
 
     public static int climbStairs(int n) {
+        if(n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
 
-        return 0;
+        int part1 = 1;
+        int part2 = 2;
+
+        int count = 0;
+
+        for (int i = 3; i <= n; i++) {
+            count = part1 + part2;
+            part1 = part2;
+            part2 = count;
+        }
+
+        return count;
     }
+
+
 }
