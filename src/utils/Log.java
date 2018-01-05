@@ -1,5 +1,7 @@
 package utils;
 
+import entity.ListNode;
+
 /**
  * Created by luyunfeng on 2017/12/25.
  */
@@ -29,6 +31,18 @@ public class Log {
         } else {
             for (Object object : objects) {
                 System.out.print(object + ", ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void d(ListNode listNode) {
+        if (listNode == null) {
+            System.out.println("NULL LIST");
+        } else {
+            while (listNode != null){
+                System.out.print(listNode.val + ", ");
+                listNode = listNode.next;
             }
             System.out.println();
         }
