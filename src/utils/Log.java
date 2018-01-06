@@ -2,6 +2,8 @@ package utils;
 
 import entity.ListNode;
 
+import java.util.List;
+
 /**
  * Created by luyunfeng on 2017/12/25.
  */
@@ -43,6 +45,17 @@ public class Log {
             while (listNode != null){
                 System.out.print(listNode.val + ", ");
                 listNode = listNode.next;
+            }
+            System.out.println();
+        }
+    }
+
+    public static void d(List list) {
+        if (list == null) {
+            System.out.println("NULL LIST");
+        } else {
+            for (Object object : list) {
+                System.out.print(object + ", ");
             }
             System.out.println();
         }
