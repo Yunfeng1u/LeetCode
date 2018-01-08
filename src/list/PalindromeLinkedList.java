@@ -33,7 +33,7 @@ public class PalindromeLinkedList {
     public static boolean isPalindrome(ListNode head) {
 
         if (head == null) {
-            return false;
+            return true;
         }
 
         List<Integer> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public class PalindromeLinkedList {
 
         int size = list.size();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size / 2; i++) {
             if (list.get(i).compareTo(list.get(size - 1 - i)) != 0) {
                 return false;
             }
