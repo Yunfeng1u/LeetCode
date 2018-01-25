@@ -29,7 +29,7 @@ public class MinStack {
     private int[] stack;
     private int size;
 
-    private Stack<Integer> minStack;
+    private Stack<Integer> indexStack;
 
     private int min = Integer.MAX_VALUE;
 

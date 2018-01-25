@@ -42,7 +42,7 @@ public class Log {
         if (listNode == null) {
             System.out.println("NULL LIST");
         } else {
-            while (listNode != null){
+            while (listNode != null) {
                 System.out.print(listNode.val + ", ");
                 listNode = listNode.next;
             }
@@ -55,7 +55,11 @@ public class Log {
             System.out.println("NULL LIST");
         } else {
             for (Object object : list) {
-                System.out.print(object + ", ");
+                if (object instanceof List) {
+                    d((List) object);
+                } else {
+                    System.out.print(object + ", ");
+                }
             }
             System.out.println();
         }
