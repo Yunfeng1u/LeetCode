@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Permutations {
     public static void main(String[] args) {
-        List<List<Integer>> result = permute(new int[]{1, 2, 3,4});
+        List<List<Integer>> result = permute2(new int[]{1, 2, 3});
         Log.d(result);
     }
 
@@ -61,5 +61,30 @@ public class Permutations {
             }
         }
         return res;
+    }
+
+    public static List<List<Integer>> permute2(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        if (nums.length == 0) {
+            return permutations;
+        }
+
+        collectPermutations(nums, 0, new ArrayList<Integer>(), permutations);
+        return permutations;
+    }
+
+    private static void collectPermutations(int[] nums, int start, List<Integer> permutation,
+                                     List<List<Integer>>  permutations) {
+
+        if (permutation.size() == nums.length) {
+            permutations.add(permutation);
+            return;
+        }
+
+        for (int i = 0; i <= permutation.size(); i++) {
+            List<Integer> newPermutation = new ArrayList<>(permutation);
+            newPermutation.add(i, nums[start]);
+            collectPermutations(nums, start + 1, newPermutation, permutations);
+        }
     }
 }
