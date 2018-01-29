@@ -25,35 +25,19 @@ public class UniquePaths {
 
     public static int uniquePaths(int m, int n) {
 
-        if (m == 0 || n == 0) return 0;
-
-        if (m == 1 || n == 1) return 1;
-
-        if (m > n){
-            m ^= n;
-            n ^= m;
-            m ^= n;
+        Integer[][] map = new Integer[m][n];
+        for (int i = 0; i < m; i++) {
+            map[i][0] = 1;
         }
-
-        int[][] dp = new int[m + 1][n + 1];
-
-        dp[1][2] = 1;
-        dp[2][1] = 1;
-
-        for (int i = 1; i <= m; i++) {
-            for (int j = i; j <= n; j++) {
-                if (i == 1 || j == 1){
-                    dp[i][j] = 1;
-                }else {
-                    dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
-                }
-                if (dp.length > j && dp[j].length > i){
-                    dp[j][i] = dp[i][j];
-                }
+        for (int j = 0; j < n; j++) {
+            map[0][j] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                map[i][j] = map[i - 1][j] + map[i][j - 1];
             }
         }
-
-        return dp[m][n];
+        return map[m - 1][n - 1];
     }
 
 }
