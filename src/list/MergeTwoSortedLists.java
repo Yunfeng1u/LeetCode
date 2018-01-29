@@ -4,7 +4,7 @@ import entity.ListNode;
 import utils.Log;
 
 /**
- * TODO 21. Merge Two Sorted Lists
+ * 21. Merge Two Sorted Lists
  * https://leetcode.com/problems/merge-two-sorted-lists/description/
  * <p>
  * Merge two sorted linked lists and return it as a new list.
@@ -35,43 +35,25 @@ public class MergeTwoSortedLists {
 
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 
-        ListNode temp = null;
-        ListNode current = null;
+        // maintain an unchanging reference to node ahead of the return node.
+        ListNode prehead = new ListNode(-1);
 
-        while (l1 != null || l2 != null) {
-            if (l1 != null && l2 == null) {
-                temp = l1;
+        ListNode prev = prehead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                prev.next = l1;
                 l1 = l1.next;
-            } else if (l1 == null) {
-                temp = l2;
-                l2 = l2.next;
             } else {
-                if (l1.val < l2.val) {
-                    temp = l1;
-                    l1 = l1.next;
-                } else {
-                    temp = l2;
-                    l2 = l2.next;
-                }
+                prev.next = l2;
+                l2 = l2.next;
             }
-
-            if (current == null){
-                current = temp;
-            }else{
-                current.next = temp;
-                current = current.next;
-            }
+            prev = prev.next;
         }
 
-        return current;
-    }
+        // exactly one of l1 and l2 can be non-null at this point, so connect
+        // the non-null list to the end of the merged list.
+        prev.next = l1 == null ? l2 : l1;
 
-    public static ListNode addNode(ListNode listNode, int val) {
-        if (listNode == null) {
-            listNode = new ListNode(val);
-        } else {
-            listNode.next = new ListNode(val);
-        }
-        return listNode;
+        return prehead.next;
     }
 }
