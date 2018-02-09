@@ -25,27 +25,34 @@ package number;
  */
 public class ContinuousSubarraySum {
     public static void main(String[] args) {
-        System.out.println(subarraySum(new int[]{1, 1, 1}, 2));
+        System.out.println(checkSubarraySum(new int[]{0, 1, 0, -1}, 0));
+//        System.out.println(checkSubarraySum(new int[]{1,1,1}, 2));
     }
 
-    public static int subarraySum(int[] nums, int k) {
+    public static  boolean checkSubarraySum(int[] nums, int k) {
+
+        if (nums.length < 2) return false;
+
         int[] sums = new int[nums.length + 1];
         sums[0] = 0;
         for (int i = 1; i < sums.length; i++) {
             sums[i] = sums[i - 1] + nums[i - 1];
         }
 
-        int count = 0;
-
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 1; i < nums.length; i++) {
             for (int j = i + 1; j <= nums.length; j++) {
-                int sum = sums[j] - sums[i];
-                if (sum == k) {
-                    count++;
+                int sum = sums[j] - sums[i - 1];
+                if (k == 0) {
+                    if (sum == 0) {
+                        return true;
+                    }
+                } else {
+                    if (sum % k == 0) {
+                        return true;
+                    }
                 }
             }
         }
-
-        return count;
+        return false;
     }
 }

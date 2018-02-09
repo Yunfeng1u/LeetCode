@@ -17,31 +17,27 @@ package number;
  */
 public class SubarraySumEqualsK {
     public static void main(String[] args) {
-        System.out.println(checkSubarraySum(new int[]{0,1,0}, 0));
+        System.out.println(subarraySum(new int[]{1, 1, 1}, 2));
     }
 
-    public static boolean checkSubarraySum(int[] nums, int k) {
-
-        if (nums.length < 2) return false;
-
+    public static int subarraySum(int[] nums, int k) {
         int[] sums = new int[nums.length + 1];
         sums[0] = 0;
         for (int i = 1; i < sums.length; i++) {
             sums[i] = sums[i - 1] + nums[i - 1];
         }
 
-        for (int i = 1; i < nums.length; i++) {
+        int count = 0;
+
+        for (int i = 0; i < nums.length; i++) {
             for (int j = i + 1; j <= nums.length; j++) {
                 int sum = sums[j] - sums[i];
-                if (k == 0) {
-                    if (sum == 0) {
-                        return true;
-                    }
-                } else if (sum % k == 0) {
-                    return true;
+                if (sum == k) {
+                    count++;
                 }
             }
         }
-        return false;
+
+        return count;
     }
 }
