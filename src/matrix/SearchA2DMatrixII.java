@@ -50,7 +50,7 @@ public class SearchA2DMatrixII {
         return find(matrix, 0, matrix.length - 1, 0, matrix[0].length - 1, target);
     }
 
-    static boolean find(int[][] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd, int target) {
+    private static boolean find(int[][] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd, int target) {
 
         if (rowEnd < 0 || columnEnd < 0) return false;
 
