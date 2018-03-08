@@ -12,20 +12,21 @@ import java.util.Stack;
  * 94. Binary Tree Inorder Traversal
  * <p>
  * https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+ * <p>
  * Given a binary tree, return the inorder traversal of its nodes' values.
  * <p>
  * For example:
  * Given binary tree [1,null,2,3],
  * 1
  * 　\
- * 　2
+ * 　　2
  * 　/
  * 3
  * return [1,3,2].
  * <p>
  * Note: Recursive solution is trivial, could you do it iteratively?
  */
-public class BinaryTreeInorderTraversal {
+public class BinaryTreeInOrderTraversal {
     public static void main(String[] args) {
         TreeNode t1 = new TreeNode(4) {{
             left = new TreeNode(2) {{
@@ -61,15 +62,17 @@ public class BinaryTreeInorderTraversal {
 
         TreeNode current = root;
 
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
                 stack.push(current);
                 current = current.left;
+            } else {
+                TreeNode node = stack.pop();
+                list.add(node.val);
+                current = node.right;
             }
-            current = stack.pop();
-            list.add(current.val);
-            current = current.right;
         }
+
         return list;
     }
 }
