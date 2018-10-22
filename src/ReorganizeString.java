@@ -77,4 +77,41 @@ public class ReorganizeString {
         }
         return sb.toString();
     }
+
+    public String reorganizeString2(String S) {
+        int[] cnt = new int[26];
+        int maxFreq = 0;
+        char maxChar = 'a';
+        for(char c : S.toCharArray()){
+            cnt[c - 'a'] += 1;
+            if (cnt[c - 'a'] > maxFreq){
+                maxFreq = cnt[c - 'a'];
+                maxChar = c;
+            }
+        }
+
+        if (maxFreq > (S.length() + 1) / 2) return "";
+
+        char[] ans = new char[S.length()];
+
+        // put the most freq char into the even index first
+        int i = 0;
+        while (cnt[maxChar - 'a'] -- > 0){
+            ans[i] = maxChar;
+            i += 2;
+        }
+
+        for (char c = 'a'; c <= 'z'; c ++){
+            while (cnt[c - 'a']-- > 0){
+                if (i >= ans.length){
+                    i = 1;
+                }
+                ans[i] = c;
+                i +=2;
+
+            }
+        }
+
+        return new String(ans);
+    }
 }
