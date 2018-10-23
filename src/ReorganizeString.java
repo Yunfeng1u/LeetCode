@@ -27,7 +27,7 @@ import java.util.PriorityQueue;
 public class ReorganizeString {
 
     public static void main(String[] args) {
-        System.out.println(reorganizeString("aab"));
+        System.out.println(reorganizeString2("aaabcdef"));
     }
 
     public static String reorganizeString(String S) {
@@ -78,7 +78,7 @@ public class ReorganizeString {
         return sb.toString();
     }
 
-    public String reorganizeString2(String S) {
+    public static String reorganizeString2(String S) {
         int[] cnt = new int[26];
         int maxFreq = 0;
         char maxChar = 'a';
@@ -108,7 +108,6 @@ public class ReorganizeString {
                 }
                 ans[i] = c;
                 i +=2;
-
             }
         }
 
