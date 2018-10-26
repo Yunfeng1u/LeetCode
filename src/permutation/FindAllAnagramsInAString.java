@@ -1,10 +1,15 @@
+package permutation;
+
+import com.sun.deploy.util.StringUtils;
 import utils.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO 438. Find All Anagrams in a String
+ * 438. Find All Anagrams in a String
  * https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
  * <p>
  * Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
@@ -41,30 +46,42 @@ import java.util.List;
 public class FindAllAnagramsInAString {
 
     public static void main(String[] args) {
-        Log.d(findAnagrams("cbaebabacd", "abc"));
-        Log.d(findAnagrams("abab", "ab"));
+        Log.d(findAnagrams3("cbaebabacd", "abc"));
+        Log.d(findAnagrams3("abab", "ab"));
     }
 
-    public static List<Integer> findAnagrams(String s, String p) {
-        List<Integer> list = new ArrayList<>();
-        char[] charArrayP = p.toCharArray();
-        int product = product(charArrayP);
+    public static List<Integer> findAnagrams3(String s, String p) {
 
-        for (int i = 0; i < s.length() - p.length() + 1; i++) {
-            char[] toBeCompared = s.substring(i, p.length() + i).toCharArray();
-            if (product(toBeCompared) == product) {
-                list.add(i);
+        char[] ptrn = p.toCharArray();
+        char[] str = s.toCharArray();
+
+        int[] w = new int[26];
+
+        for(char c : ptrn) w[c - 'a']++;
+
+        int start = 0;
+
+        List<Integer> result = new LinkedList<>();
+
+        for(int i = 0; i<str.length; i++){
+            int cIndex = str[i] - 'a';
+
+            w[cIndex]--;
+            // the crucial bit, if we have seen the character too many times
+            // or it is a character that is not in the pattern, rewind the starting index
+            while(w[cIndex] < 0){
+                w[str[start] - 'a']++;
+                start++;
+            }
+
+            if(i - start + 1 == ptrn.length){
+                result.add(start);
+                w[str[start] - 'a']++;
+                start++;
             }
         }
-        return list;
-    }
 
-    public static int product(char[] chars) {
-        int product = 1;
-        for (char aChar : chars) {
-            product *= aChar;
-        }
-        return product;
-    }
 
+        return result;
+    }
 }
