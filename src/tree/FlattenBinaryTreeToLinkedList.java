@@ -1,11 +1,6 @@
 package tree;
 
 import entity.TreeNode;
-import utils.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * 114. Flatten Binary Tree to Linked List
