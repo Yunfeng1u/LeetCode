@@ -60,7 +60,7 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         TreeNode root = new TreeNode(preorder[preStart]);
 
         root.left = construct(preStart + 1, inStart, inIndex - 1, preorder, inorder);
-        root.right = construct(preStart  + 1 + inIndex - inStart, inIndex + 1, inEnd, preorder, inorder);
+        root.right = construct(preStart + 1 + inIndex - inStart, inIndex + 1, inEnd, preorder, inorder);
         return root;
     }
 }
