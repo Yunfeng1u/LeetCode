@@ -2,7 +2,9 @@ package dynamic_programming;
 
 /**
  * 198. House Robber
- * https://leetcode.com/problems/climbing-stairs/description/
+ * https://leetcode.com/problems/house-robber/
+ * <p>
+ * <p>
  * You are a professional robber planning to rob houses along a street.
  * Each house has a certain amount of money stashed, the only constraint stopping you
  * from robbing each of them is that adjacent houses have security system connected and
@@ -10,6 +12,7 @@ package dynamic_programming;
  * <p>
  * Given a list of non-negative integers representing the amount of money of each house,
  * determine the maximum amount of money you can rob tonight without alerting the police.
+ *
  */
 public class HouseRobber {
 
