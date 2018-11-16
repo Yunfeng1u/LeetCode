@@ -32,11 +32,31 @@ package dynamic_programming;
 public class ClimbingStairs {
 
     public static void main(String[] args) {
-        System.out.println(climbStairs(6));
+        System.out.println(climbStairs(4));
     }
 
     public static int climbStairs(int n) {
-        if(n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+
+        // 采用动态规划的思想，定义一个长度为n的数组，数组的第i项代表，到达第i+1级共有几种途径
+        int[] dp = new int[n];
+
+        // 到达第1级共有1种途径
+        dp[0] = 1;
+        // 到达第2级共有2种途径
+        dp[1] = 2;
+
+        for (int i = 2; i < n; i++) {
+            // 到达第i级，因为只有从第i-1级和第i-2级才能到达第i级，所以只需要把第i-1级和第i-2级累计的途径数量加起来即可
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        // 到达最后高一级共有dp[n - 1]种途径
+        return dp[n - 1];
+    }
+
+    public static int climbStairs2(int n) {
         if (n == 1) return 1;
         if (n == 2) return 2;
 
