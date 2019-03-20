@@ -35,7 +35,7 @@ public class MaximumProductSubarray {
         int accNegativeMax = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] >=0) {
+            if (nums[i] >= 0) {
                 accMax = Math.max(nums[i], accMax * nums[i]);
                 accNegativeMax = Math.min(nums[i], accNegativeMax * nums[i]);
             } else {
@@ -43,7 +43,7 @@ public class MaximumProductSubarray {
                 accMax = Math.max(nums[i], accNegativeMax * nums[i]);
                 accNegativeMax = Math.min(nums[i], temp * nums[i]);
             }
-            if (accMax > max){
+            if (accMax > max) {
                 max = accMax;
             }
         }
@@ -55,18 +55,18 @@ public class MaximumProductSubarray {
 
         int max = nums[0];
         int leftProduct = 1;
-        for(int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             max = Math.max(leftProduct *= nums[i], max);
-            if(nums[i] == 0) {
+            if (nums[i] == 0) {
                 leftProduct = 1;
                 max = Math.max(0, max);
             }
         }
 
         int rightProduct = 1;
-        for(int i = nums.length-1; i > 0; i--) {
+        for (int i = nums.length - 1; i > 0; i--) {
             max = Math.max(rightProduct *= nums[i], max);
-            if(nums[i] == 0) {
+            if (nums[i] == 0) {
                 rightProduct = 1;
                 max = Math.max(0, max);
             }

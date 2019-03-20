@@ -1,8 +1,5 @@
 package string;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 5. Longest Palindromic Substring
  * https://leetcode.com/problems/longest-palindromic-substring/
