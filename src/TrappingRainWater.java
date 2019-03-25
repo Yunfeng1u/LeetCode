@@ -15,8 +15,8 @@
 public class TrappingRainWater {
 
     public static void main(String[] args) {
-//        System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
-//        System.out.println(trap(new int[]{0, 5, 0, 3, 0, 1, 0, 1}));
+        System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
+        System.out.println(trap(new int[]{0, 5, 0, 3, 0, 1, 0, 1}));
         System.out.println(trap(new int[]{2, 5, 3, 4, 3, 4}));
     }
 
@@ -38,5 +38,38 @@ public class TrappingRainWater {
             }
         }
         return max;
+    }
+
+    public static int trap2(int[] height) {
+        if (height.length <= 2) return 0;
+        int max = Integer.MIN_VALUE;
+        int maxIndex = -1;
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] > max) {
+                max = height[i];
+                maxIndex = i;
+            }
+        }
+
+        int leftMax = height[0];
+        int water = 0;
+        for (int i = 1; i < maxIndex; i++) {
+            if (height[i] > leftMax) {
+                leftMax = height[i];
+            } else {
+                water += leftMax - height[i];
+            }
+        }
+
+        int rightMax = height[height.length - 1];
+        for (int i = height.length - 2; i > maxIndex; i--) {
+            if (height[i] > rightMax) {
+                rightMax = height[i];
+            } else {
+                water += rightMax - height[i];
+            }
+        }
+
+        return water;
     }
 }
