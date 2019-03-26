@@ -15,32 +15,31 @@
 public class TrappingRainWater {
 
     public static void main(String[] args) {
-        System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
-        System.out.println(trap(new int[]{0, 5, 0, 3, 0, 1, 0, 1}));
-        System.out.println(trap(new int[]{2, 5, 3, 4, 3, 4}));
-    }
-
-    public static int trap(int[] A) {
-        int a = 0;
-        int b = A.length - 1;
-        int max = 0;
-        int leftmax = 0;
-        int rightmax = 0;
-        while (a <= b) {
-            leftmax = Math.max(leftmax, A[a]);
-            rightmax = Math.max(rightmax, A[b]);
-            if (leftmax < rightmax) {
-                max += (leftmax - A[a]);       // leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
-                a++;
-            } else {
-                max += (rightmax - A[b]);
-                b--;
-            }
-        }
-        return max;
+//        System.out.println(trap2(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
+//        System.out.println(trap2(new int[]{0, 5, 0, 3, 0, 1, 0, 1}));
+        System.out.println(trap3(new int[]{2, 5, 3, 4, 3, 4}));
     }
 
     public static int trap2(int[] height) {
+        int secHight = 0;
+        int left = 0;
+        int right = height.length - 1;
+        int area = 0;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                secHight = Math.max(height[left], secHight);
+                area += secHight - height[left];
+                left++;
+            } else {
+                secHight = Math.max(height[right], secHight);
+                area += secHight - height[right];
+                right--;
+            }
+        }
+        return area;
+    }
+
+    public static int trap3(int[] height) {
         if (height.length <= 2) return 0;
         int max = Integer.MIN_VALUE;
         int maxIndex = -1;
