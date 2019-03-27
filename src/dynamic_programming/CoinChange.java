@@ -1,12 +1,13 @@
 package dynamic_programming;
 
-import java.util.Arrays;
-
 /**
+ * TODO blog
  * 322. Coin Change
  * https://leetcode.com/problems/coin-change/
  * <p>
- * You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+ * You are given coins of different denominations and a total amount of money amount.
+ * Write a function to compute the fewest number of coins that you need to make up that amount.
+ * If that amount of money cannot be made up by any combination of the coins, return -1.
  * <p>
  * Example 1:
  * <p>
@@ -22,8 +23,8 @@ import java.util.Arrays;
  */
 public class CoinChange {
     public static void main(String[] args) {
-        System.out.println(coinChange(new int[]{32, 12, 5}, 11));
-//        System.out.println(coinChange(new int[]{1, 2, 5}, 11));
+//        System.out.println(coinChange(new int[]{32, 12, 5}, 11));
+        System.out.println(coinChange(new int[]{5, 1, 2}, 11));
 //        System.out.println(coinChange(new int[]{2}, 3));
     }
 
@@ -35,59 +36,32 @@ public class CoinChange {
             return 0;
         }
 
-        Arrays.sort(coins);
-
+        // dp[i]为凑够i元所需要的最少硬币数
         int[] dp = new int[amount + 1];
         for (int i = 1; i < dp.length; i++) {
             dp[i] = -1;
         }
-
         for (int i = 1; i < dp.length; i++) {
-            for (int j = 0; j < coins.length; j++) {
-                if (coins[j] <= i) {
-                    int temp = dp[i - coins[j]];
+            for (int coin : coins) {
+                // 大于i元则无法组成i
+                if (coin <= i) {
+                    // 凑够i-coin元所需要的最少硬币数
+                    int temp = dp[i - coin];
                     if (temp != -1) {
+                        // 如果已有硬币组合可以组成凑够i，取较少值
                         if (dp[i] != -1) {
                             dp[i] = Math.min(dp[i], temp + 1);
-                        } else {
+                        }
+                        // 如果目前没有硬币组合可以组成凑够i，用之前凑够i-coin元所需要的最少硬币数，凑上coin，刚好是i，所以数量加1
+                        else {
                             dp[i] = temp + 1;
                         }
+                    } else {
+                        // 如果无法凑够i-coin元，以当前的coin来说，也就无法凑够i元，等待下次循环
                     }
                 }
             }
         }
         return dp[amount];
-    }
-
-
-    int minCount = Integer.MAX_VALUE;
-
-    public int coinChange2(int[] coins, int amount) {
-        Arrays.sort(coins);
-        count(amount, coins.length - 1, coins, 0);
-        return minCount == Integer.MAX_VALUE ? -1 : minCount;
-    }
-
-    void count(int amount, int index, int[] coins, int count) {
-        if (amount % coins[index] == 0) {
-            int newCount = count + amount / coins[index];
-            if (newCount < minCount)
-                minCount = newCount;
-            //return;  // Not sure why return here will slow down in OJ. It's better in my local test however.
-        }
-
-        if (index == 0)
-            return;
-
-        for (int i = amount / coins[index]; i >= 0; i--) {
-            int newAmount = amount - i * coins[index];
-            int newCount = count + i;
-
-            int nextCoin = coins[index - 1];
-            if (newCount + (newAmount + nextCoin - 1) / nextCoin >= minCount)
-                break;
-
-            count(newAmount, index - 1, coins, newCount);
-        }
     }
 }
