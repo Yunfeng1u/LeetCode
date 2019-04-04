@@ -1,8 +1,7 @@
 package dynamic_programming;
 
-import entity.Interval;
-
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * 646. Maximum Length of Pair Chain
@@ -46,22 +45,52 @@ public class MaximumLengthOfPairChain {
                 {0, 3}, // 1
         };
 
-        System.out.println(findLongestChain(pairs1));
+        System.out.println(findLongestChain2(pairs1));
+    }
+
+    public static int findLongestChain2(int[][] pairs) {
+        // 按头坐标排序
+        Arrays.sort(pairs, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+
+        int len = 1;
+        int pre = pairs[0][1];
+
+        for (int i = 1; i < pairs.length; i++) {
+            int[] pair = pairs[i];
+            // 当前记录的头大于上一个记录的尾巴，接入
+            if (pair[0] > pre) {  // not overlap
+                len++;
+                pre = pair[1];
+            }
+            // 当前记录尾巴小于上一个记录的尾巴，更新为当前记录
+            else if (pair[1] < pre) { // overlap but with smaller second element
+                pre = pair[1];
+            }
+        }
+        return len;
     }
 
     public static int findLongestChain(int[][] pairs) {
+        // 按尾坐标排序
         Arrays.sort(pairs, new Comparator<int[]>() {
             @Override
             public int compare(int[] a, int[] b) {
                 return a[1] - b[1];
             }
         });
-        int cur = Integer.MIN_VALUE, ans = 0;
-        for (int[] pair : pairs)
-            if (cur < pair[0]) {
-                cur = pair[1];
-                ans++;
+        int count = 1, end = pairs[0][1];
+        for (int i= 1; i < pairs.length; i++) {
+            // 当前记录的头大于上一个记录的尾巴，接入
+            if (pairs[i][0] > end) {
+                count++;
+                end = pairs[i][1];
             }
-        return ans;
+        }
+        return count;
     }
 }
