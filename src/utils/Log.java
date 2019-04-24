@@ -27,6 +27,17 @@ public class Log {
         }
     }
 
+    public static void d(double[] doubles) {
+        if (doubles == null) {
+            System.out.println("NULL ARRAY");
+        } else {
+            for (double d : doubles) {
+                System.out.print(d + ", ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void d(int[][] matrix) {
         if (matrix == null) {
             System.out.println("NULL MATRIX");
